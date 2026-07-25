@@ -1,0 +1,410 @@
+/* ============================================
+   Landing Page — TypeFlow
+   ============================================
+   This file is scoped to landing.html only.
+   It imports base variables from style.css
+   and adds landing-specific overrides.
+   ============================================ */
+
+/* ── Landing-Specific Custom Properties ──── */
+
+:root {
+  --landing-bg: #f8f7f4;
+  --landing-text: #1a1a2e;
+  --landing-text-secondary: #000000;
+  --landing-text-muted: #040407;
+  --landing-overlay-start: rgba(255, 255, 255, 0.92);
+  --landing-overlay-mid: rgba(255, 255, 255, 0.55);
+  --landing-overlay-end: rgba(255, 255, 255, 0.15);
+  --landing-card-bg: rgba(255, 255, 255, 0.8);
+  --landing-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --landing-radius: 12px;
+}
+
+/* ── Base Reset (landing page scope) ─────── */
+
+.landing-main,
+.landing-header,
+.landing-footer {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--landing-bg);
+  color: var(--landing-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── Background Image ────────────────────── */
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('desk-keyboard-bg.png') center center / cover no-repeat;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    var(--landing-overlay-start) 0%,
+    var(--landing-overlay-mid) 45%,
+    var(--landing-overlay-end) 100%
+  );
+  z-index: 1;
+}
+
+/* ── Header / Logo ───────────────────────── */
+
+.landing-header {
+  position: relative;
+  z-index: 2;
+  padding: 1.5rem 2.5rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--landing-text);
+  transition: opacity 0.2s ease;
+}
+
+.logo:hover {
+  opacity: 0.7;
+}
+
+.logo-icon {
+  color: var(--accent, #6c63ff);
+}
+
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ── Main Layout ─────────────────────────── */
+
+.landing-main {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  padding: 0 2.5rem 2rem;
+}
+
+/* ── Hero Section ────────────────────────── */
+
+.hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  max-width: 560px;
+}
+
+.hero-content {
+  padding: 2rem 0;
+}
+
+.hero-heading {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--landing-text);
+  margin-bottom: 1rem;
+}
+
+.hero-tagline {
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 400;
+  color: var(--landing-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.hero-description {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--landing-text-muted);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 480px;
+}
+
+/* ── CTA Button ──────────────────────────── */
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  background: var(--accent, #6c63ff);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 12px rgba(108, 99, 255, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(108, 99, 255, 0.4);
+  filter: brightness(1.08);
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+.cta-button:focus-visible {
+  outline: 2px solid var(--accent, #6c63ff);
+  outline-offset: 3px;
+}
+
+.cta-button svg {
+  transition: transform 0.2s ease;
+}
+
+.cta-button:hover svg {
+  transform: translateX(3px);
+}
+
+/* ── Footer / Credits ────────────────────── */
+
+.landing-footer {
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.footer-credit {
+  font-size: 0.8rem;
+  color: var(--landing-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.footer-credit strong {
+  color: var(--landing-text-secondary);
+  font-weight: 600;
+}
+
+.social-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.social-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--landing-text-muted);
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.social-link:hover {
+  transform: scale(1.1);
+  color: #fff;
+}
+
+/* Platform-specific brand colors on hover */
+.social-linkedin:hover {
+  background: #0A66C2;
+}
+
+.social-instagram:hover {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.social-github:hover {
+  background: #181717;
+  color: #fff;
+}
+
+.social-portfolio:hover {
+  background: var(--accent, #6c63ff);
+}
+
+.social-link:focus-visible {
+  outline: 2px solid var(--accent, #6c63ff);
+  outline-offset: 2px;
+}
+
+/* Tooltip */
+.social-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--landing-text);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 500;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.social-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: var(--landing-text);
+}
+
+.social-link:hover .social-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Entrance Animations ─────────────────── */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.animate-delay-1 {
+  animation-delay: 0.15s;
+}
+
+.animate-delay-2 {
+  animation-delay: 0.3s;
+}
+
+.animate-delay-3 {
+  animation-delay: 0.45s;
+}
+
+.animate-delay-4 {
+  animation-delay: 0.6s;
+}
+
+/* ── Responsive: Tablet ──────────────────── */
+
+@media (max-width: 900px) {
+  .landing-main {
+    padding: 0 2rem 2rem;
+  }
+
+  .hero {
+    max-width: 480px;
+  }
+
+  .hero-heading {
+    font-size: clamp(2.5rem, 7vw, 4rem);
+  }
+}
+
+/* ── Responsive: Mobile ──────────────────── */
+
+@media (max-width: 640px) {
+  body::before {
+    background-size: cover;
+    background-position: center top;
+  }
+
+  body::after {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(255, 255, 255, 0.75) 40%,
+      rgba(248, 247, 244, 0.95) 100%
+    );
+  }
+
+  .landing-header {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .landing-main {
+    padding: 0 1.5rem 1.5rem;
+    min-height: auto;
+  }
+
+  .hero {
+    max-width: 100%;
+  }
+
+  .hero-content {
+    text-align: center;
+    padding: 1rem 0 2rem;
+  }
+
+  .hero-heading {
+    font-size: 2.5rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.05rem;
+  }
+
+  .hero-description {
+    max-width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .cta-button {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  .landing-footer {
+    text-align: center;
+    border-top: none;
+    padding-top: 1rem;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+}
+
+/* ── Prefers Reduced Motion ──────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    animation: none;
+    opacity: 1;
+  }
+}

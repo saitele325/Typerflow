@@ -1,0 +1,798 @@
+/* ============================================
+   TypeFlow — CSS Custom Properties & Themes
+   ============================================ */
+
+:root {
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Accent colors */
+  --accent: #6c63ff;
+  --accent-glow: rgba(108, 99, 255, 0.4);
+  --correct: #4ade80;
+  --incorrect: #f87171;
+  --incorrect-bg: rgba(248, 113, 113, 0.15);
+
+  /* Spacing */
+  --card-padding: 2.5rem;
+  --card-radius: 16px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.4s ease;
+}
+
+/* Dark theme (default) */
+[data-theme="dark"] {
+  --bg-primary: #0a0a0f;
+  --bg-card: rgba(255, 255, 255, 0.06);
+  --bg-card-border: rgba(255, 255, 255, 0.1);
+  --text-primary: #f0f0f0;
+  --text-secondary: rgba(255, 255, 255, 0.5);
+  --text-muted: rgba(255, 255, 255, 0.25);
+  --text-correct: var(--correct);
+  --text-incorrect: var(--incorrect);
+  --text-untouched: rgba(255, 255, 255, 0.3);
+  --caret-color: var(--accent);
+  --kbd-bg: rgba(255, 255, 255, 0.1);
+  --kbd-border: rgba(255, 255, 255, 0.2);
+  --config-btn-bg: rgba(255, 255, 255, 0.06);
+  --config-btn-hover: rgba(255, 255, 255, 0.12);
+  --config-btn-active-bg: var(--accent);
+  --config-btn-active-text: #fff;
+  --overlay-bg: rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --history-item-bg: rgba(255, 255, 255, 0.04);
+  --history-item-border: rgba(255, 255, 255, 0.08);
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --bg-primary: #f0f0f5;
+  --bg-card: rgba(255, 255, 255, 0.65);
+  --bg-card-border: rgba(255, 255, 255, 0.8);
+  --text-primary: #1a1a2e;
+  --text-secondary: rgba(26, 26, 46, 0.5);
+  --text-muted: rgba(26, 26, 46, 0.25);
+  --text-correct: #16a34a;
+  --text-incorrect: #dc2626;
+  --text-untouched: rgba(26, 26, 46, 0.3);
+  --caret-color: var(--accent);
+  --kbd-bg: rgba(0, 0, 0, 0.06);
+  --kbd-border: rgba(0, 0, 0, 0.15);
+  --config-btn-bg: rgba(0, 0, 0, 0.05);
+  --config-btn-hover: rgba(0, 0, 0, 0.1);
+  --config-btn-active-bg: var(--accent);
+  --config-btn-active-text: #fff;
+  --overlay-bg: rgba(255, 255, 255, 0.4);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --history-item-bg: rgba(0, 0, 0, 0.03);
+  --history-item-border: rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   Reset & Base
+   ============================================ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ============================================
+   Background
+   ============================================ */
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('desk-keyboard-bg.png') center center / cover no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
+.header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-primary);
+}
+
+.logo-icon {
+  color: var(--accent);
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: var(--config-btn-bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(8px);
+}
+
+.btn-icon:hover {
+  background: var(--config-btn-hover);
+  color: var(--text-primary);
+}
+
+.btn-icon:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Main
+   ============================================ */
+
+.main {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.5rem 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   Glass Card
+   ============================================ */
+
+.glass-card {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-card);
+}
+
+/* ============================================
+   Timer Display
+   ============================================ */
+
+.timer-display {
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  opacity: 0.9;
+  transition: color var(--transition-fast);
+  user-select: none;
+}
+
+.timer-display.warning {
+  color: var(--accent);
+}
+
+.timer-display.danger {
+  color: var(--incorrect);
+}
+
+/* ============================================
+   Config Bar
+   ============================================ */
+
+.config-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.config-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.config-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.config-options {
+  display: flex;
+  gap: 2px;
+  background: var(--config-btn-bg);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.config-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-family);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.config-btn:hover {
+  color: var(--text-primary);
+  background: var(--config-btn-hover);
+}
+
+.config-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.config-btn.active {
+  background: var(--config-btn-active-bg);
+  color: var(--config-btn-active-text);
+  font-weight: 600;
+}
+
+/* ============================================
+   Live Stats
+   ============================================ */
+
+.live-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: 1.25rem;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+}
+
+.live-stats.visible {
+  opacity: 1;
+}
+
+.live-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.live-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.live-stat-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   Typing Area
+   ============================================ */
+
+.typing-area {
+  position: relative;
+  cursor: text;
+  min-height: 120px;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: background var(--transition-fast);
+}
+
+.typing-area:hover,
+.typing-area:focus {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+[data-theme="light"] .typing-area:hover,
+[data-theme="light"] .typing-area:focus {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.text-display {
+  font-size: 1.25rem;
+  line-height: 2;
+  letter-spacing: 0.01em;
+  word-wrap: break-word;
+  user-select: none;
+}
+
+.text-display .char {
+  position: relative;
+  color: var(--text-untouched);
+  transition: color var(--transition-fast);
+}
+
+.text-display .char.correct {
+  color: var(--text-correct);
+}
+
+.text-display .char.incorrect {
+  color: var(--text-incorrect);
+  background: var(--incorrect-bg);
+  border-radius: 2px;
+}
+
+.text-display .char.current {
+  color: var(--text-primary);
+}
+
+.text-display .char.current::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 2px;
+  background: var(--caret-color);
+  border-radius: 1px;
+  animation: caret-blink 1s step-end infinite;
+}
+
+.text-display .space.incorrect {
+  background: var(--incorrect-bg);
+  border-radius: 2px;
+}
+
+.hidden-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  border: none;
+  outline: none;
+  font-size: 16px; /* prevents iOS auto-zoom on focus */
+  /* remove pointer-events: none so it can even be tapped directly */
+}
+
+
+@keyframes caret-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ============================================
+   Restart Hint
+   ============================================ */
+
+.restart-hint {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.restart-hint.visible {
+  opacity: 1;
+}
+
+kbd {
+  display: inline-block;
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  font-family: var(--font-family);
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+/* ============================================
+   Results Overlay
+   ============================================ */
+
+.results-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 1.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+[data-theme="light"] .results-overlay {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.results-card {
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.35s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.results-title {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.results-wpm {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.results-wpm-value {
+  font-size: 5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.results-wpm-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
+
+.results-accuracy {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.results-accuracy-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.results-accuracy-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-left: 0.4rem;
+}
+
+.results-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.result-detail {
+  text-align: center;
+}
+
+.result-detail-value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.result-detail-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   WPM Chart
+   ============================================ */
+
+.results-chart-container {
+  margin-bottom: 1.5rem;
+  background: var(--history-item-bg);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+#wpmChart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================
+   Personal Best & History
+   ============================================ */
+
+.personal-best-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: rgba(108, 99, 255, 0.15);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  border-radius: 8px;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  animation: fadeIn 0.5s ease;
+}
+
+.results-history h3 {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 120px;
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background: var(--history-item-bg);
+  border: 1px solid var(--history-item-border);
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.history-item-wpm {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.history-item-accuracy {
+  color: var(--text-secondary);
+}
+
+.history-item-date {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+/* ============================================
+   Restart Button
+   ============================================ */
+
+.btn-restart {
+  display: block;
+  width: 100%;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-restart:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-restart:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ============================================
+   Scrollbar
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem 1.25rem;
+  }
+
+  .main {
+    padding: 0 1rem 2rem;
+  }
+
+  .glass-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .timer-display {
+    font-size: 2.5rem;
+  }
+
+  .config-bar {
+    gap: 1rem;
+  }
+
+  .config-label {
+    display: none;
+  }
+
+  .text-display {
+    font-size: 1.05rem;
+    line-height: 1.9;
+  }
+
+  .results-wpm-value {
+    font-size: 3.5rem;
+  }
+
+  .results-details {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0.75rem 1rem;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
+  }
+
+  .glass-card {
+    padding: 1.25rem;
+  }
+
+  .timer-display {
+    font-size: 2rem;
+  }
+
+  .config-bar {
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .config-btn {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .text-display {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .typing-area {
+    min-height: 100px;
+    padding: 0.75rem;
+  }
+
+  .live-stat-value {
+    font-size: 1.2rem;
+  }
+
+  .results-card {
+    padding: 1.5rem;
+  }
+
+  .results-wpm-value {
+    font-size: 3rem;
+  }
+
+  .results-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
